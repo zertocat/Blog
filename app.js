@@ -23,9 +23,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(express.json());
 
+// register 
+
+
 // routes
 app.get('/', (req, res) => {
-    res.redirect('/blogs');
+    res.redirect('blogs');
 });
 
 // about page
