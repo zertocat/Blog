@@ -9,6 +9,7 @@
         <h2><%= blog.title %></h2>
         <div class="content">
             <p><%= blog.body %></p>
+            <img src="../<%= blog.image %> " alt="image" style="width:820px">
         </div>
         <a class="delete" data-doc="<%= blog._id  %> ">DELETE</a>
     </div>

@@ -1,6 +1,5 @@
-const fs = require('fs');
+const { unlink } = require('fs/promises');
 const Blog = require('../models/blog');
-
 
 // blog_index
 const blog_index = (req, res) => {
@@ -31,16 +30,25 @@ const blog_create_get = (req, res) => {
 }
 
 // blog_create_post
-const blog_create_post = (req, res) => {
-    const blog = new Blog(req.body);
+const blog_create_post = ((req, res, next) => {    
+    const blog = new Blog({
+        title: req.body.title,
+        snippet: req.body.snippet,
+        image: req.body.image,
+        body: req.body.body,
+    })
+    if (req.file) {
+        blog.image = req.file.path
+    }
+    // save data
     blog.save()
-        .then((result) => {
+            .then((result) => {
             res.redirect('blogs')
         })
         .catch((err) => {
             console.log(err)
         });
-}
+});
 
 // blog_delete
 const blog_delete = (req, res) => {

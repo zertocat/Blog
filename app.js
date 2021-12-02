@@ -3,8 +3,8 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const ConnectDB = require('./servers/database/connection');
 const blogRoutes = require('./servers/routes/blogRoutes');
-const authRoutes = require('./servers/routes/authRoutes');
-const userRoutes = require('./servers/routes/userRoutes');
+
+
 const app = express();
 
 dotenv.config();
@@ -20,10 +20,9 @@ app.set('view engine', 'ejs');
 // middleware & static files
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use('/public/uploads', express.static('public/uploads'));
 app.use(morgan('dev'));
 app.use(express.json());
-
-// register 
 
 
 // routes
@@ -35,12 +34,6 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about',{title:'About'})
 })
-
-//auth route
-app.use(authRoutes)
-
-//user route
-app.use(userRoutes)
 
 // blog route
 app.use(blogRoutes);
